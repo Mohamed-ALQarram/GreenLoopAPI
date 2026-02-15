@@ -8,19 +8,15 @@ namespace GreenLoop.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Partner")]
-        public int PartnerId { get; set; }
-        public User Partner { get; set; }
+        [ForeignKey("Business")]
+        public int BusinessId { get; set; }
+        public Business Business { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
 
         public string? Description { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string Code { get; set; } // Unique
 
         public int PointsCost { get; set; }
 

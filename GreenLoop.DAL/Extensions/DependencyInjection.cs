@@ -1,12 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using GreenLoop.DAL.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace GreenLoop.DAL.Extensions
+namespace GreenLoop.DAL.Extensions;
+
+public static class DependencyInjection 
 {
-    public static class DependencyInjection 
+    public static IServiceCollection AddDAL(this IServiceCollection service, IConfiguration configuration)
     {
-        public static IServiceProvider AddDAL(this IServiceProvider service)
-        {
-            return service;
-        }
+        
+        service.AddDbContext<GreenLoopDbContext>((options) => { options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")); });
+
+        return service;
     }
 }

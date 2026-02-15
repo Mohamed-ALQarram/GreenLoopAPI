@@ -5,7 +5,7 @@ namespace GreenLoop.BLL
 {
     public static class DependencyInjection
     {
-        public static IServiceProvider AddBLL(this IServiceProvider service)
+        public static IServiceCollection AddBLL(this IServiceCollection service)
         {
             return service;
         }

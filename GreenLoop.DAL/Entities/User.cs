@@ -19,20 +19,20 @@ namespace GreenLoop.DAL.Entities
 
         [Required]
         [MaxLength(20)]
-        public string PhoneNumber { get; set; } // Username
+        public string PhoneNumber { get; set; } 
 
         [Required]
         public string PasswordHash { get; set; }
 
         public UserRole Role { get; set; }
 
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public ICollection<UserAddress> Addresses { get; set; } = new List<UserAddress>();
+        public bool isPhoneVerified { get; private set; } = false;
+        public string? RefreshToken { get; private set; }
+        public DateTime? RefreshTokenExpiryTime { get; private set; } = null;
 
-
-        // Relationship for Coupons (Partners)
-        public ICollection<Coupon> PublishedCoupons { get; set; } = new List<Coupon>();
     }
+
+
 }

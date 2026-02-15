@@ -1,4 +1,6 @@
 
+using GreenLoop.BLL;
+using GreenLoop.DAL.Extensions;
 namespace GreenLoop
 {
     public class Program
@@ -13,6 +15,11 @@ namespace GreenLoop
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services
+            .AddBLL()
+            .AddDAL(builder.Configuration);
+
 
             var app = builder.Build();
 

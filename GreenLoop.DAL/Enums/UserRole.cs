@@ -11,6 +11,6 @@ namespace GreenLoop.DAL.Enums
         Customer,
         Driver,
         Admin,
-        Partner
+        Business
     }
 }

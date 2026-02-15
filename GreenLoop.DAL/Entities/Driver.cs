@@ -13,7 +13,7 @@ namespace GreenLoop.DAL.Entities
 
         public bool IsVerified { get; set; } = false;
 
-        public int? CurrentZoneId { get; set; } // FK to Zone
+        //public int? CurrentZoneId { get; set; } // FK to Zone
 
         // علاقات السائق فقط
         [InverseProperty("Driver")]

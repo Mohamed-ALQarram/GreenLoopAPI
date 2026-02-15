@@ -11,7 +11,7 @@ namespace GreenLoop.DAL.Entities
 
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
-        public User Customer { get; set; }
+        public Customer Customer { get; set; }
 
         [ForeignKey("Address")]
         public int AddressId { get; set; }
@@ -19,7 +19,7 @@ namespace GreenLoop.DAL.Entities
 
         [ForeignKey("Driver")]
         public int? DriverId { get; set; }
-        public User? Driver { get; set; }
+        public Driver? Driver { get; set; }
 
         public RequestStatus Status { get; set; } = RequestStatus.Pending;
 
