@@ -1,0 +1,6 @@
+@GreenLoop_HostAddress = http://localhost:5241
+
+GET {{GreenLoop_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
