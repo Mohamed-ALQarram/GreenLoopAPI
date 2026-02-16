@@ -20,11 +20,9 @@ namespace GreenLoop.DAL.Repositories
                 .AnyAsync(u => u.PhoneNumber == phoneNumber);
         }
 
-        public async Task<Customer?> GetCustomerByPhoneAsync(string phoneNumber)
+        public async Task<User?> GetCustomerByPhoneAsync(string phoneNumber)
         {
-            return await _context.Users
-                .OfType<Customer>()
-                .FirstOrDefaultAsync(c => c.PhoneNumber == phoneNumber);
+            return await _context.Users.FirstOrDefaultAsync(c => c.PhoneNumber == phoneNumber);
         }
 
         public async Task<User> AddUserAsync(User user)

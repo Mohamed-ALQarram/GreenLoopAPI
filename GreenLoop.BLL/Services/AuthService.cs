@@ -58,14 +58,13 @@ namespace GreenLoop.BLL.Services
                     };
                     break;
                 default:
-                    var customer = new Customer
+                    user = new Customer
                     {
                         FullName = dto.FullName,
                         PhoneNumber = dto.PhoneNumber,
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                         Role = dto.Role
                     };
-                    user = customer;
                     break;
             }
 
@@ -106,7 +105,7 @@ namespace GreenLoop.BLL.Services
                 Token = token,
                 ExpiresAt = expiresAt,
                 UserName = user.FullName,
-                Role = nameof(user.Role)
+                Role = user.Role.ToString()
             };
         }
 
@@ -116,7 +115,7 @@ namespace GreenLoop.BLL.Services
             {
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new(ClaimTypes.Name, user.FullName),
-                new(ClaimTypes.Role, nameof(user.Role))
+                new(ClaimTypes.Role, user.Role.ToString())
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
