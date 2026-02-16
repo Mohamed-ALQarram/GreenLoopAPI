@@ -47,6 +47,24 @@ public class GreenLoopDbContext: DbContext
             .HasForeignKey(r => r.DriverId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<UserCoupon>()
+        .HasOne(uc => uc.Customer) 
+        .WithMany(u=>u.Redemptions) 
+        .HasForeignKey(uc => uc.CustomerId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<UserCoupon>()
+        .HasOne(uc => uc.Coupon)
+        .WithMany()
+        .HasForeignKey(uc => uc.CouponId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<UserAddress>()
+        .HasOne(c => c.User)        
+        .WithMany()                     
+        .HasForeignKey(a => a.UserId) 
+        .IsRequired();                 
+
     }
 }
 

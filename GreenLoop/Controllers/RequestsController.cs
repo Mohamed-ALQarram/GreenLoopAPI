@@ -36,6 +36,17 @@ namespace GreenLoop.Controllers
             return Ok(categories);
         }
 
+        // ─── POST /api/requests/waste-categories ────────────────────────
+        [HttpPost("waste-categories")]
+        public async Task<IActionResult> AddWasteCategory([FromBody] CreateWasteCategoryDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var created = await _requestService.AddWasteCategoryAsync(dto);
+            return CreatedAtAction(nameof(GetWasteCategories), new { id = created.Id }, created);
+        }
+
         // ─── POST /api/requests/schedule ────────────────────────────────
         [HttpPost("schedule")]
         public async Task<IActionResult> SchedulePickup([FromBody] SchedulePickupRequestDto dto)

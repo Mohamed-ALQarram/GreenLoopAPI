@@ -1,3 +1,4 @@
+# GreenLoop
 # GreenLoop API Documentation
 
 This document outlines the available API endpoints for the GreenLoop application.

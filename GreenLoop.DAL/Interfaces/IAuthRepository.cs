@@ -6,6 +6,6 @@ namespace GreenLoop.DAL.Interfaces
     {
         Task<bool> PhoneNumberExistsAsync(string phoneNumber);
         Task<Customer?> GetCustomerByPhoneAsync(string phoneNumber);
-        Task<Customer> AddCustomerAsync(Customer customer);
+        Task<User> AddUserAsync(User user);
     }
 }

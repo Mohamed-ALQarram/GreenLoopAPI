@@ -4,6 +4,7 @@ using GreenLoop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenLoop.DAL.Migrations
 {
     [DbContext(typeof(GreenLoopDbContext))]
-    partial class GreenLoopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260216133326_fix-errors")]
+    partial class fixerrors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,13 @@ namespace GreenLoop.DAL.Migrations
 
             modelBuilder.Entity("GreenLoop.DAL.Entities.Coupon", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<int?>("BusinessId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BusinessId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -43,7 +48,7 @@ namespace GreenLoop.DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RequiredPoints")
+                    b.Property<int>("PointsCost")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -146,37 +151,6 @@ namespace GreenLoop.DAL.Migrations
                     b.HasIndex("DriverId");
 
                     b.ToTable("PickupRequests");
-                });
-
-            modelBuilder.Entity("GreenLoop.DAL.Entities.PointTransaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DriverId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsAdded")
-                        .HasColumnType("int");
-
-                    b.Property<string>("QrCodeValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DriverId");
-
-                    b.ToTable("PointTransactions");
                 });
 
             modelBuilder.Entity("GreenLoop.DAL.Entities.RequestDetail", b =>
@@ -332,8 +306,8 @@ namespace GreenLoop.DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("CouponId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CouponId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -474,7 +448,9 @@ namespace GreenLoop.DAL.Migrations
                 {
                     b.HasOne("GreenLoop.DAL.Entities.Business", "Business")
                         .WithMany()
-                        .HasForeignKey("BusinessId");
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Business");
                 });
@@ -510,25 +486,6 @@ namespace GreenLoop.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Address");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Driver");
-                });
-
-            modelBuilder.Entity("GreenLoop.DAL.Entities.PointTransaction", b =>
-                {
-                    b.HasOne("GreenLoop.DAL.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenLoop.DAL.Entities.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Customer");
 

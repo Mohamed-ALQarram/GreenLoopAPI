@@ -6,13 +6,14 @@ namespace GreenLoop.DAL.Entities
     {
         [InverseProperty("Customer")]
         public ICollection<PickupRequest> Requests { get; set; } = new List<PickupRequest>();
+        [InverseProperty("User")]
         public ICollection<UserAddress> Addresses { get; set; } = new List<UserAddress>();
         
         public int PointsBalance { get; set; } = 0;
         public int TotalPointsEarned { get; set; } = 0;
 
-        //[InverseProperty("Customer")]
-        //public ICollection<CouponRedemption> Redemptions { get; set; } = new List<CouponRedemption>();
+        [InverseProperty("Customer")]
+        public ICollection<UserCoupon> Redemptions { get; set; } = new List<UserCoupon>();
 
     }
 }
