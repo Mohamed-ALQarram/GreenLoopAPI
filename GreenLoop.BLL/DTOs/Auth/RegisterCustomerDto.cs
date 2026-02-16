@@ -1,3 +1,4 @@
+using GreenLoop.DAL.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace GreenLoop.BLL.DTOs.Auth
@@ -16,7 +17,12 @@ namespace GreenLoop.BLL.DTOs.Auth
         [MinLength(6)]
         public string Password { get; set; } = string.Empty;
 
-        [MaxLength(100)]
-        public string? AddressCity { get; set; }
+        [MaxLength(50)]
+        public string City { get; set; } = "";
+        [MaxLength(50)]
+        public string Governorate { get; set; } = "";
+
+        public UserRole Role { get; set; }
+
     }
 }
