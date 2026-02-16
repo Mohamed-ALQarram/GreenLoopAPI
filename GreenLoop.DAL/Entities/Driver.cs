@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using GreenLoop.DAL.Enums;
+
 namespace GreenLoop.DAL.Entities
 {
     public class Driver: User
@@ -20,5 +22,7 @@ namespace GreenLoop.DAL.Entities
         public ICollection<PickupRequest> Tasks { get; set; } = new List<PickupRequest>();
 
         public ICollection<DriverDocument> Documents { get; set; } = new List<DriverDocument>();
+
+        public DriverStatus Status { get; set; } = DriverStatus.Available;
     }
 }

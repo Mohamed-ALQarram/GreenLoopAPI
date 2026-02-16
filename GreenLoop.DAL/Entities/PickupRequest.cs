@@ -24,6 +24,7 @@ namespace GreenLoop.DAL.Entities
         public RequestStatus Status { get; set; } = RequestStatus.Pending;
 
         public DateTime ScheduledDate { get; set; }
+        public DateTime? StartTime { get; set; }
         public DateTime? CompletedDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

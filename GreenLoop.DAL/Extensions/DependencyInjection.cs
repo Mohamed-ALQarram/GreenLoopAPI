@@ -18,6 +18,9 @@ public static class DependencyInjection
         service.AddScoped<IAuthRepository, AuthRepository>();
         service.AddScoped<IRequestRepository, RequestRepository>();
 
+        service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IDriverRepository, GreenLoop.DAL.Repositories.DriverRepository>();
+        service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IWalletRepository, GreenLoop.DAL.Repositories.WalletRepository>();
+
         return service;
     }
 }
