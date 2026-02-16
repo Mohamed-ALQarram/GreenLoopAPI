@@ -10,6 +10,7 @@ namespace GreenLoop.BLL
         public static IServiceCollection AddBLL(this IServiceCollection service)
         {
             service.AddScoped<IDriverService, Services.DriverService>();
+            service.AddScoped<IWalletService, Services.WalletService>();
             return service;
         }
     }

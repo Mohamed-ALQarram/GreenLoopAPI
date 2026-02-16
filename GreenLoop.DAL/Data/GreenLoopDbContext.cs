@@ -15,6 +15,8 @@ public class GreenLoopDbContext: DbContext
     public DbSet<PickupRequest> PickupRequests { get; set; }
     public DbSet<RequestDetail> RequestDetails { get; set; }
     public DbSet<Coupon> Coupons { get; set; }
+    public DbSet<WalletTransaction> WalletTransactions { get; set; }
+    public DbSet<UserCoupon> UserCoupons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
