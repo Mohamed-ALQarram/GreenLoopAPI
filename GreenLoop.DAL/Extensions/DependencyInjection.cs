@@ -12,6 +12,8 @@ public static class DependencyInjection
         
         service.AddDbContext<GreenLoopDbContext>((options) => { options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")); });
 
+        service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IDriverRepository, GreenLoop.DAL.Repositories.DriverRepository>();
+
         return service;
     }
 }

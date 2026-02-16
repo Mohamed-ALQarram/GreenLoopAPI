@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GreenLoop.BLL\GreenLoop.BLL.csproj" />
+    <ProjectReference Include="..\GreenLoop.DAL\GreenLoop.DAL.csproj" />
   </ItemGroup>
 
 </Project>
