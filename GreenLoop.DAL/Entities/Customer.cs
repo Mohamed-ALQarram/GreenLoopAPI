@@ -11,8 +11,8 @@ namespace GreenLoop.DAL.Entities
         public int PointsBalance { get; set; } = 0;
         public int TotalPointsEarned { get; set; } = 0;
 
-        //[InverseProperty("Customer")]
-        //public ICollection<CouponRedemption> Redemptions { get; set; } = new List<CouponRedemption>();
+        [InverseProperty("Customer")]
+        public ICollection<UserCoupon> Redemptions { get; set; } = new List<UserCoupon>();
 
     }
 }
