@@ -27,11 +27,14 @@ namespace GreenLoop.DAL.Repositories
                 .FirstOrDefaultAsync(c => c.PhoneNumber == phoneNumber);
         }
 
-        public async Task<Customer> AddCustomerAsync(Customer customer)
+        public async Task<User> AddUserAsync(User user)
         {
-            await _context.Set<Customer>().AddAsync(customer);
+          
+            await _context.Set<User>().AddAsync(user);
             await _context.SaveChangesAsync();
-            return customer;
+            return user;
         }
+
+
     }
 }

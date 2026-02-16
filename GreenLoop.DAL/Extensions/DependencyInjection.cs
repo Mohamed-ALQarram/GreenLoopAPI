@@ -4,6 +4,7 @@ using GreenLoop.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GreenLoop.DAL.Interfaces.IRepositories;
 
 namespace GreenLoop.DAL.Extensions;
 

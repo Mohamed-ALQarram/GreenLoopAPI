@@ -36,19 +36,46 @@ namespace GreenLoop.BLL.Services
                 throw new InvalidOperationException("User already exists.");
 
             // 2. Create Customer entity
-            var customer = new Customer
+            User user;
+            switch(dto.Role)
             {
-                FullName = dto.FullName,
-                PhoneNumber = dto.PhoneNumber,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = UserRole.Customer
-            };
+                case UserRole.Business:
+                    user = new Business
+                    {
+                        FullName = dto.FullName,
+                        PhoneNumber = dto.PhoneNumber,
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                        Role = dto.Role
+                    };
+                    break;
+                case UserRole.Driver:
+                    user= new Driver
+                    {
+                        FullName = dto.FullName,
+                        PhoneNumber = dto.PhoneNumber,
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                        Role = dto.Role
+                    };
+                    break;
+                default:
+                    var customer = new Customer
+                    {
+                        FullName = dto.FullName,
+                        PhoneNumber = dto.PhoneNumber,
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                        Role = dto.Role
+                    };
+                    customer.Addresses.Add(new UserAddress { City = dto.City, Governorate = dto.Governorate });
+                    user = customer;
+                    break;
+            }
+
 
             // 3. Save to DB via repository
-            await _authRepository.AddCustomerAsync(customer);
+            await _authRepository.AddUserAsync(user);
 
             // 4. Generate JWT and return response
-            return BuildAuthResponse(customer);
+            return BuildAuthResponse(user);
         }
 
         // ─── Login ───────────────────────────────────────────────────────
@@ -70,27 +97,27 @@ namespace GreenLoop.BLL.Services
 
         // ─── Helpers ─────────────────────────────────────────────────────
 
-        private AuthResponseDto BuildAuthResponse(Customer customer)
+        private AuthResponseDto BuildAuthResponse(User user)
         {
             var expiresAt = DateTime.UtcNow.AddDays(7);
-            var token = GenerateToken(customer, expiresAt);
+            var token = GenerateToken(user, expiresAt);
 
             return new AuthResponseDto
             {
                 Token = token,
                 ExpiresAt = expiresAt,
-                UserName = customer.FullName,
-                Role = nameof(UserRole.Customer)
+                UserName = user.FullName,
+                Role = nameof(user.Role)
             };
         }
 
-        private string GenerateToken(Customer customer, DateTime expiresAt)
+        private string GenerateToken(User user, DateTime expiresAt)
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, customer.Id.ToString()),
-                new(ClaimTypes.Name, customer.FullName),
-                new(ClaimTypes.Role, nameof(UserRole.Customer))
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new(ClaimTypes.Name, user.FullName),
+                new(ClaimTypes.Role, nameof(user.Role))
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
