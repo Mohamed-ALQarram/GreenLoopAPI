@@ -18,6 +18,7 @@ namespace GreenLoop.BLL
 
             service.AddScoped<IDriverService, Services.DriverService>();
             service.AddScoped<IWalletService, Services.WalletService>();
+            service.AddScoped<IQRService, Services.QRService>();
             return service;
         }
     }

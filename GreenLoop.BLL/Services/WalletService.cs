@@ -36,7 +36,7 @@ namespace GreenLoop.BLL.Services
                 CouponId = c.Id,
                 Title = c.Title,
                 PartnerName = c.Business?.BusinessName ?? "Market", // Assuming active coupons have businesses loaded
-                RequiredPoints = c.PointsCost,
+                RequiredPoints = c.RequiredPoints,
                 ImageUrl = c.ImageUrl
             }).ToList();
         }
@@ -50,10 +50,10 @@ namespace GreenLoop.BLL.Services
             if (coupon == null || !coupon.IsActive) return null; // Invalid or inactive coupon
             if (coupon.ExpiryDate.HasValue && coupon.ExpiryDate < DateTime.UtcNow) return null;
 
-            if (customer.PointsBalance < coupon.PointsCost) return null; // Insufficient balance
+            if (customer.PointsBalance < coupon.RequiredPoints) return null; // Insufficient balance
 
             // Deduct points
-            customer.PointsBalance -= coupon.PointsCost;
+            customer.PointsBalance -= coupon.RequiredPoints;
 
             // Generate Code
             string code = GenerateCouponCode(coupon.Id, customerId);
@@ -62,7 +62,7 @@ namespace GreenLoop.BLL.Services
             var transaction = new WalletTransaction
             {
                 CustomerId = customerId,
-                Amount = -coupon.PointsCost,
+                Amount = -coupon.RequiredPoints,
                 Type = TransactionType.Redeemed,
                 Date = DateTime.UtcNow,
                 Description = $"Redeemed coupon: {coupon.Title}"
@@ -100,7 +100,7 @@ namespace GreenLoop.BLL.Services
             }).ToList();
         }
 
-        private string GenerateCouponCode(int couponId, int customerId)
+        private string GenerateCouponCode(Guid couponId, int customerId)
         {
              // Simple unique code generation
              return $"CPN-{couponId}-{customerId}-{Guid.NewGuid().ToString().Substring(0, 8).ToUpper()}";

@@ -13,7 +13,7 @@ namespace GreenLoop.DAL.Entities
         public Customer Customer { get; set; }
 
         [ForeignKey("Coupon")]
-        public int CouponId { get; set; }
+        public Guid CouponId { get; set; }
         public Coupon Coupon { get; set; }
 
         [Required]

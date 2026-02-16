@@ -1,0 +1,17 @@
+
+To update the database with the new changes, please run the following commands in the Package Manager Console:
+
+1. Add a new migration:
+   ```powershell
+   Add-Migration AddPointTransactionAndUpdateCoupon
+   ```
+
+2. Update the database:
+   ```powershell
+   Update-Database
+   ```
+
+Note: 
+- `PointTransaction` table will be created.
+- `Coupons` table will be modified (Id changed to Guid). This might cause data loss if there is existing data in `Coupons` table. If you have existing data, consider a more complex migration strategy or manually handling the Id change.
+- `UserCoupons` table will be updated to reference `Coupons` via Guid.

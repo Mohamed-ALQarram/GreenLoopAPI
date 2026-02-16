@@ -10,7 +10,7 @@ namespace GreenLoop.BLL.DTOs
 
     public class CouponDto
     {
-        public int CouponId { get; set; }
+        public Guid CouponId { get; set; }
         public string Title { get; set; }
         public string PartnerName { get; set; }
         public int RequiredPoints { get; set; }
@@ -19,7 +19,7 @@ namespace GreenLoop.BLL.DTOs
 
     public class RedeemRequestDto
     {
-        public int CouponId { get; set; }
+        public Guid CouponId { get; set; }
     }
 
     public class RedeemResponseDto

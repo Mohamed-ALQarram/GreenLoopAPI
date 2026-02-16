@@ -28,7 +28,7 @@ namespace GreenLoop.DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Coupon?> GetCouponByIdAsync(int couponId)
+        public async Task<Coupon?> GetCouponByIdAsync(Guid couponId)
         {
              return await _context.Coupons.FindAsync(couponId);
         }

@@ -20,6 +20,7 @@ public static class DependencyInjection
 
         service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IDriverRepository, GreenLoop.DAL.Repositories.DriverRepository>();
         service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IWalletRepository, GreenLoop.DAL.Repositories.WalletRepository>();
+        service.AddScoped<GreenLoop.DAL.Interfaces.IRepositories.IPointTransactionRepository, GreenLoop.DAL.Repositories.PointTransactionRepository>();
 
         return service;
     }
