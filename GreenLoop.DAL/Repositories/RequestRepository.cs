@@ -25,7 +25,7 @@ namespace GreenLoop.DAL.Repositories
         public async Task<Customer?> GetCustomerByUserIdAsync(int userId)
         {
             return await _context.Users
-                .OfType<Customer>()
+                .OfType<Customer>().Include(x=>x.Addresses)
                 .FirstOrDefaultAsync(c => c.Id == userId);
         }
 
@@ -79,6 +79,13 @@ namespace GreenLoop.DAL.Repositories
         {
             _context.PickupRequests.Update(request);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<WasteCategory> AddWasteCategoryAsync(WasteCategory category)
+        {
+            await _context.WasteCategories.AddAsync(category);
+            await _context.SaveChangesAsync();
+            return category;
         }
     }
 }

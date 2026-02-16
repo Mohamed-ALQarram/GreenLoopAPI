@@ -12,5 +12,6 @@ namespace GreenLoop.DAL.Interfaces
         Task<int> GetRequestCountByCustomerIdAsync(int customerId, RequestStatus? status);
         Task<PickupRequest?> GetRequestByIdAsync(int id);
         Task UpdateRequestAsync(PickupRequest request);
+        Task<WasteCategory> AddWasteCategoryAsync(WasteCategory category);
     }
 }
